@@ -13,9 +13,11 @@ using WebZapService.DTOs.Responses;
 
 namespace WebZapService.Controllers
 {
-    [RoutePrefix("api/Hooks")]
+    [RoutePrefix("api/hooks")]
     public class HooksController : ApiController
     {
+        [HttpPost]
+        [Route("subscribe")]
         public SubscribeResponse Subscribe(SubscribeRequest request)
         {
             //WebOperationContext ctx = WebOperationContext.Current;
@@ -67,6 +69,8 @@ namespace WebZapService.Controllers
         }
 
 
+        [HttpDelete]
+        [Route("unsubscribe")]
         public UnSubscribeResponse UnSubscribe(UnSubscribeRequest request)
         {
             //WebOperationContext ctx = WebOperationContext.Current;

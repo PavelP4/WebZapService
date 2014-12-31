@@ -12,9 +12,11 @@ using WebZapService.DataAccess.DataModel;
 
 namespace WebZapService.Controllers
 {
-    [RoutePrefix("api/Info")]
+    [RoutePrefix("api/info")]
     public class InfoController : ApiController
     {
+        [HttpGet]
+        [Route("devices")]
         public DevicesResponse Devices()
         {
             DevicesResponse response = new DevicesResponse();

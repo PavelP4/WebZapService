@@ -14,9 +14,8 @@ namespace ZapService.Test
     [TestClass]
     public class ZapServiceHostTest
     {
-        //private string ServiceUri = "http://localhost:63994/ZapService.svc/";
-        //private string ServiceUri = "http://localhost:8800/ZapService/";
-        private string ServiceUri = "http://localhost:8800/ZapService.svc/";//82.209.199.146:55008 // 192.168.107.132:8800
+        private string ServiceUri = "http://192.168.107.132:8800/";
+        //private string ServiceUri = "http://localhost:58158/";
 
 
 
@@ -29,7 +28,7 @@ namespace ZapService.Test
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = await client.GetAsync("api/test");  
+                HttpResponseMessage response = await client.GetAsync("api/test/ok");  
                 string result = string.Empty;
 
                 if (response.IsSuccessStatusCode)
@@ -57,7 +56,7 @@ namespace ZapService.Test
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // UnSubscribe
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/hooks", requestObj);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/hooks/subscribe", requestObj);
                 
                 if (response.IsSuccessStatusCode)
                 {
@@ -70,7 +69,7 @@ namespace ZapService.Test
 
 
                 // UnSubscribe
-                response = await client.DeleteAsync(string.Format("api/hooks/{0}", responseObj.Subscription_Id));
+                response = await client.DeleteAsync(string.Format("api/hooks/unsubscribe", responseObj.Subscription_Id));
                 
                 if (response.IsSuccessStatusCode)
                 {
@@ -95,7 +94,7 @@ namespace ZapService.Test
 
 
                 // UnSubscribe
-                HttpResponseMessage response = await client.DeleteAsync("api/hooks/26");
+                HttpResponseMessage response = await client.DeleteAsync("api/hooks/unsubscribe");
 
                 if (response.IsSuccessStatusCode)
                 {

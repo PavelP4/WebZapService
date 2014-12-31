@@ -42,72 +42,71 @@ namespace ZapService.Test
             }                           
         }
 
-        [TestMethod]
-        public async Task Subscribe_Unsubscribe()
-        {
-            SubscribeRequest requestObj = new SubscribeRequest() { Event = "Trigger_H", Target_URL = @"http://test.com/asdf" };
-            SubscribeResponse responseObj = null;
-            UnSubscribeResponse responseObj2 = null;
 
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ServiceUri);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                // UnSubscribe
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/hooks/subscribe", requestObj);
+        //[TestMethod]        
+        //public async Task Subscribe_Unsubscribe()
+        //{
+        //    SubscribeRequest requestObj = new SubscribeRequest() { Event = "Trigger_H", Target_URL = @"http://test.com/asdf" };
+        //    SubscribeResponse responseObj = null;
+        //    UnSubscribeResponse responseObj2 = null;
+
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(ServiceUri);
+        //        client.DefaultRequestHeaders.Accept.Clear();
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        // UnSubscribe
+        //        HttpResponseMessage response = await client.PostAsJsonAsync("api/hooks/subscribe", requestObj);
                 
-                if (response.IsSuccessStatusCode)
-                {
-                    responseObj = await response.Content.ReadAsAsync<SubscribeResponse>();
-                }
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            responseObj = await response.Content.ReadAsAsync<SubscribeResponse>();
+        //        }
                                 
-                Assert.IsNotNull(responseObj, "responseObj must to be created.");
-                Assert.IsTrue(responseObj.Success, "Success must to be TRUE.");
-                Assert.IsTrue(responseObj.Subscription_Id > 0, "SubscribeId must to be more than 0.");
+        //        Assert.IsNotNull(responseObj, "responseObj must to be created.");
+        //        Assert.IsTrue(responseObj.Success, "Success must to be TRUE.");
+        //        Assert.IsTrue(responseObj.Subscription_Id > 0, "SubscribeId must to be more than 0.");
 
 
-                // UnSubscribe
-                response = await client.DeleteAsync(string.Format("api/hooks/unsubscribe", responseObj.Subscription_Id));
+        //        // UnSubscribe
+        //        response = await client.DeleteAsync((string.Format("api/hooks/unsubscribe", responseObj.Subscription_Id));
                 
-                if (response.IsSuccessStatusCode)
-                {
-                    responseObj2 = await response.Content.ReadAsAsync<UnSubscribeResponse>();
-                }
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            responseObj2 = await response.Content.ReadAsAsync<UnSubscribeResponse>();
+        //        }
 
-                Assert.IsNotNull(responseObj2, "responseObj2 must to be created.");
-                Assert.IsTrue(responseObj2.Success, "Success must to be TRUE.");
-            } 
-        }
+        //        Assert.IsNotNull(responseObj2, "responseObj2 must to be created.");
+        //        Assert.IsTrue(responseObj2.Success, "Success must to be TRUE.");
+        //    } 
+        //}
 
-        [TestMethod]
-        public async Task Unsubscribe()
-        {
-            UnSubscribeResponse responseObj2 = null;
+        //[TestMethod]
+        //public async Task Unsubscribe()
+        //{
+        //    UnSubscribeResponse responseObj2 = null;
 
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ServiceUri);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
-                // UnSubscribe
-                HttpResponseMessage response = await client.DeleteAsync("api/hooks/unsubscribe");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    responseObj2 = await response.Content.ReadAsAsync<UnSubscribeResponse>();
-                }
-
-                Assert.IsNotNull(responseObj2, "responseObj2 must to be created.");
-                Assert.IsTrue(responseObj2.Success, "Success must to be TRUE.");
-            }
-        }
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(ServiceUri);
+        //        client.DefaultRequestHeaders.Accept.Clear();
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 
+        //        // UnSubscribe
+        //        HttpResponseMessage response = await client.DeleteAsync("api/hooks/unsubscribe");
 
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            responseObj2 = await response.Content.ReadAsAsync<UnSubscribeResponse>();
+        //        }
+
+        //        Assert.IsNotNull(responseObj2, "responseObj2 must to be created.");
+        //        Assert.IsTrue(responseObj2.Success, "Success must to be TRUE.");
+        //    }
+        //}
 
     }
 }

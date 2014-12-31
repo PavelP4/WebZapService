@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using WebZapService.DataAccess;
 using WebZapService.DataAccess.DataModel;
@@ -18,15 +19,14 @@ namespace WebZapService.Controllers
     {
         [HttpPost]
         [Route("subscribe")]
-        public SubscribeResponse Subscribe(SubscribeRequest request)
+        public HttpResponseMessage Subscribe(SubscribeRequest request)
         {
-            //WebOperationContext ctx = WebOperationContext.Current;
-
             ErrorInfo validateError = request.Validate();
             if (validateError != null)
-            {
-                //ctx.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
-                return new SubscribeResponse() { Success = false, Error = validateError };
+            {              
+                return Request.CreateResponse<SubscribeResponse>(
+                    HttpStatusCode.BadRequest, 
+                    new SubscribeResponse() { Success = false, Error = validateError });
             }
 
             SubscribeResponse response = new SubscribeResponse();
@@ -51,35 +51,36 @@ namespace WebZapService.Controllers
                     response.Subscription_Id = newSubscribe.Id;
                 }
                 catch (Exception ex)
-                {
+                {                   
                     error = new ErrorInfo(0, string.Format("Error saving to the database: {0}", ex.Message));
                 }
             }
 
             if (error != null)
             {
-                //ctx.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
-                return new SubscribeResponse() { Success = false, Error = error };
+                return Request.CreateResponse<SubscribeResponse>(
+                    HttpStatusCode.BadRequest,
+                    new SubscribeResponse() { Success = false, Error = error });                
             }
             else
             {
-                //ctx.OutgoingResponse.StatusCode = HttpStatusCode.Created;
-                return response;
+                return Request.CreateResponse<SubscribeResponse>(
+                    HttpStatusCode.Created,
+                    response);   
             }
         }
 
 
         [HttpDelete]
         [Route("unsubscribe")]
-        public UnSubscribeResponse UnSubscribe(UnSubscribeRequest request)
+        public HttpResponseMessage UnSubscribe(UnSubscribeRequest request)
         {
-            //WebOperationContext ctx = WebOperationContext.Current;
-
             ErrorInfo validateError = request.Validate();
             if (validateError != null)
             {
-                //ctx.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
-                return new UnSubscribeResponse() { Success = false, Error = validateError };
+                return Request.CreateResponse<UnSubscribeResponse>(
+                    HttpStatusCode.BadRequest,
+                    new UnSubscribeResponse() { Success = false, Error = validateError }); 
             }
 
             UnSubscribeResponse response = new UnSubscribeResponse();
@@ -117,13 +118,15 @@ namespace WebZapService.Controllers
 
             if (error != null)
             {
-                //ctx.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
-                return new UnSubscribeResponse() { Success = false, Error = error };
+                return Request.CreateResponse<UnSubscribeResponse>(
+                    HttpStatusCode.BadRequest,
+                    new UnSubscribeResponse() { Success = false, Error = error });
             }
             else
             {
-                //ctx.OutgoingResponse.StatusCode = HttpStatusCode.OK;
-                return response;
+                return Request.CreateResponse<UnSubscribeResponse>(
+                    HttpStatusCode.OK,
+                    response);
             }
         }
     }

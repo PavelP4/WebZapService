@@ -8,6 +8,8 @@ using WebZapService.DTOs.Requests;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using WebZapService.DataAccess.DataModel;
+using WebZapService.DataAccess;
+using WebZapService.Controllers;
 
 namespace ZapService.Test
 {
@@ -66,7 +68,37 @@ namespace ZapService.Test
             }
         }
 
+        [TestMethod]        
+        public async Task NewAlertEvent()
+        {
+            NewAlertRequest requestObj = new NewAlertRequest() { 
+                Message = string.Format("This is a new alert message for test (Date and Time: {0}).", DateTime.Now), 
+                AccountName = "fff" 
+            };
+            NewAlertResponse responseObj = null;
+           
 
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ServiceUri);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                                
+                var response = await client.PostAsJsonAsync("api/events/new_alert", requestObj);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    responseObj = await response.Content.ReadAsAsync<NewAlertResponse>();
+                }
+            }
+
+
+            Assert.IsNotNull(responseObj, "Response object must to be received.");
+            Assert.IsTrue(responseObj.Success,
+                string.Format("Success must to be TRUE. Error: {0}.", (responseObj.Error == null) ? "none" : responseObj.Error.Message));
+        }
+
+       
 
         //[TestMethod]        
         //public async Task Subscribe_Unsubscribe()

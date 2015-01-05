@@ -32,27 +32,38 @@ namespace WebZapService.Controllers
             SubscribeResponse response = new SubscribeResponse();
             ErrorInfo error = null;
 
-            using (DBWebZapService context = new DBWebZapService())
+            try
             {
-                Subscribe newSubscribe = new Subscribe()
+                using (DBWebZapService context = new DBWebZapService())
                 {
-                    Account_Name = request.Account_Name,
-                    Subscription_URL = request.Subscription_URL,
-                    Target_URL = request.Target_URL,
-                    Event = request.Event,
-                    Created = DateTime.Now
-                };
+                    Subscribe newSubscribe = new Subscribe()
+                    {
+                        Account_Name = request.Account_Name,
+                        Subscription_URL = request.Subscription_URL,
+                        Target_URL = request.Target_URL,
+                        Event = request.Event,
+                        Created = DateTime.Now
+                    };
 
-                try
-                {
-                    context.Subscribes.Add(newSubscribe);
-                    context.SaveChanges();
+                    try
+                    {
+                        context.Subscribes.Add(newSubscribe);
+                        context.SaveChanges();
 
-                    response.Subscription_Id = newSubscribe.Id;
+                        response.Subscription_Id = newSubscribe.Id;
+                    }
+                    catch (Exception ex)
+                    {                   
+                        error = new ErrorInfo(0, string.Format("Error saving to the database: {0}", ex.Message));
+                        throw;
+                    }
                 }
-                catch (Exception ex)
-                {                   
-                    error = new ErrorInfo(0, string.Format("Error saving to the database: {0}", ex.Message));
+            }
+            catch (Exception ex)
+            {
+                if (error == null)
+                {
+                    error = new ErrorInfo(0, string.Format("Error access to the database: {0}", ex.Message));
                 }
             }
 
@@ -86,33 +97,45 @@ namespace WebZapService.Controllers
             UnSubscribeResponse response = new UnSubscribeResponse();
             ErrorInfo error = null;
 
-            using (DBWebZapService context = new DBWebZapService())
+            try
             {
-                Subscribe delSubscribe = null;
+                using (DBWebZapService context = new DBWebZapService())
+                {
+                    Subscribe delSubscribe = null;
 
-                try
-                {
-                    delSubscribe = context.Subscribes.Find(request.Subscription_Id);
-                }
-                catch (Exception ex)
-                {
-                    error = new ErrorInfo(0, string.Format("Error serching in the database: {0}", ex.Message));
-                }
+                    try
+                    {
+                        delSubscribe = context.Subscribes.Find(request.Subscription_Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        error = new ErrorInfo(0, string.Format("Error serching in the database: {0}", ex.Message));
+                        throw;
+                    }
 
-                if (delSubscribe == null)
-                {
-                    error = new ErrorInfo(0, string.Format("Data by [ ID = {0} ] not found.", request.Subscription_Id));
-                }
+                    if (delSubscribe == null)
+                    {
+                        error = new ErrorInfo(0, string.Format("Data by [ ID = {0} ] not found.", request.Subscription_Id));
+                    }
 
-                delSubscribe.IsUnsubscribed = true;
+                    delSubscribe.IsUnsubscribed = true;
 
-                try
-                {
-                    context.SaveChanges();
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        error = new ErrorInfo(0, string.Format("Error saving to the database: {0}", ex.Message));
+                        throw;
+                    }
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                if (error == null)
                 {
-                    error = new ErrorInfo(0, string.Format("Error saving to the database: {0}", ex.Message));
+                    error = new ErrorInfo(0, string.Format("Error access to the database: {0}", ex.Message));
                 }
             }
 

@@ -114,14 +114,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HooksController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DTOs\ErrorInfo.cs" />
+    <Compile Include="DTOs\Requests\NewAlertRequest.cs" />
     <Compile Include="DTOs\Requests\SubscribeRequest.cs" />
     <Compile Include="DTOs\Requests\UnSubscribeRequest.cs" />
     <Compile Include="DTOs\Responses\BaseResponse.cs" />
     <Compile Include="DTOs\Responses\DevicesResponse.cs" />
+    <Compile Include="DTOs\Responses\NewAlertResponse.cs" />
     <Compile Include="DTOs\Responses\SubscribeResponse.cs" />
     <Compile Include="DTOs\Responses\UnSubscribeResponse.cs" />
     <Compile Include="Global.asax.cs">
@@ -145,11 +148,17 @@
     <Content Include="Views\Web.config" />
     <Content Include="Zapier_JS\TestApp.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Zapier_Docs\APIs.xlsx" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebZapService.BusinessLogic\WebZapService.BusinessLogic.csproj">
+      <Project>{02492a49-fa52-45d0-a0fc-fd8201b774ff}</Project>
+      <Name>WebZapService.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebZapService.DataAccess\WebZapService.DataAccess.csproj">
       <Project>{9265aea5-879d-4fc5-958d-839630aae418}</Project>
       <Name>WebZapService.DataAccess</Name>

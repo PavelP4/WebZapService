@@ -31,7 +31,7 @@ namespace WebZapService.Controllers
                 using (DBWebZapService context = new DBWebZapService())
                 {
                     var subscriptions = from s in context.Subscribes
-                                        where s.Account_Name == request.AccountName
+                                        where s.API_Key == request.API_Key
                                             && s.Event == EN_NEW_ALERT
                                             && s.IsUnsubscribed == false
                                         select s;

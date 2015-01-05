@@ -32,6 +32,8 @@ namespace WebZapService.Controllers
             SubscribeResponse response = new SubscribeResponse();
             ErrorInfo error = null;
 
+            //Request.Headers.GetValues("X-Dcm-Clientuid").First<string>();
+
             try
             {
                 using (DBWebZapService context = new DBWebZapService())
@@ -39,6 +41,7 @@ namespace WebZapService.Controllers
                     Subscribe newSubscribe = new Subscribe()
                     {
                         Account_Name = request.Account_Name,
+                        API_Key = Request.Headers.GetValues("X-Dcm-Clientuid").First<string>(),
                         Subscription_URL = request.Subscription_URL,
                         Target_URL = request.Target_URL,
                         Event = request.Event,

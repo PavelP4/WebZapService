@@ -12,7 +12,7 @@ namespace WebZapService.DTOs.Requests
         [DataMember(Name = "message")]
         public string Message { get; set; }
 
-        [DataMember(Name = "account_name")]
-        public string AccountName { get; set; }
+        [DataMember(Name = "api_key")]
+        public string API_Key { get; set; }
     }
 }

@@ -16,6 +16,10 @@ namespace WebZapService.DataAccess.DataModel
         public string Account_Name { get; set; }
 
         [Required]
+        [MaxLength(100)]
+        public string API_Key { get; set; }
+
+        [Required]
         public string Subscription_URL { get; set; }
 
         [Required]        

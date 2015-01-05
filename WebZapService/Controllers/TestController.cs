@@ -17,5 +17,17 @@ namespace WebZapService.Controllers
         {
             return "OK!!!";
         }
+
+        [HttpGet]
+        [Route("api_key_validate")]
+        public HttpResponseMessage API_Key_Validate()
+        {
+            string API_Key = Request.Headers.GetValues("X-Dcm-Clientuid").First<string>();
+
+            bool isValid = (API_Key.Length > 0) ? true : false;
+            HttpStatusCode stc = (isValid) ? HttpStatusCode.OK : HttpStatusCode.Forbidden;
+
+            return Request.CreateResponse<bool>(stc, isValid);
+        }
     }
 }

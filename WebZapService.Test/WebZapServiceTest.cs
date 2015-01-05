@@ -42,6 +42,30 @@ namespace ZapService.Test
             }                           
         }
 
+        [TestMethod]
+        public async Task Get_Devices()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ServiceUri);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync("api/info/devices");
+                DevicesResponse result = null;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    result = await response.Content.ReadAsAsync<DevicesResponse>();
+                }
+
+
+                Assert.IsNotNull(result, "Result object must be not null.");
+                Assert.IsNotNull(result.Devices, "Property Devices must be not null.");
+                Assert.IsTrue(result.Devices.Count > 0, "The Device's list must contain some data.");
+            }
+        }
+
 
 
         //[TestMethod]        

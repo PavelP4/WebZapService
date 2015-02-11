@@ -15,32 +15,49 @@ namespace WebZapService.Controllers
     [RoutePrefix("api/info")]
     public class InfoController : ApiController
     {
+        //[HttpGet]
+        //[Route("devices")]
+        //public DevicesResponse Devices()
+        //{
+        //    DevicesResponse response = new DevicesResponse();
+        //    ErrorInfo error = null;
+
+        //    using (DBWebZapService context = new DBWebZapService())
+        //    {
+        //        try
+        //        {
+        //            response.Devices = context.Devices.ToList<Device>();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            error = new ErrorInfo(0, string.Format("Cannot get devices list: {0}", ex.Message));
+        //        }
+        //    }
+
+        //    if (error != null)
+        //    {
+        //        return new DevicesResponse() { Success = false, Error = error };
+        //    }
+        //    else
+        //    {
+        //        return response;
+        //    }
+        //}
+
         [HttpGet]
         [Route("devices")]
-        public DevicesResponse Devices()
+        public IEnumerable<Device> Devices()
         {
-            DevicesResponse response = new DevicesResponse();
-            ErrorInfo error = null;
-
             using (DBWebZapService context = new DBWebZapService())
             {
                 try
                 {
-                    response.Devices = context.Devices.ToList<Device>();
+                    return context.Devices.ToList<Device>();
                 }
-                catch (Exception ex)
+                catch
                 {
-                    error = new ErrorInfo(0, string.Format("Cannot get devices list: {0}", ex.Message));
+                    return null;
                 }
-            }
-
-            if (error != null)
-            {
-                return new DevicesResponse() { Success = false, Error = error };
-            }
-            else
-            {
-                return response;
             }
         }
     }

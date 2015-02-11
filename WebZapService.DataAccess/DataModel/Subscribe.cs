@@ -33,5 +33,12 @@ namespace WebZapService.DataAccess.DataModel
         public DateTime Created { get; set; }
 
         public bool IsUnsubscribed { get; set; }
+
+        [MaxLength(20)]
+        public string Phone { get; set; }
+                
+        public int Country_Id { get; set; }
+
+        public int Device_Id { get; set; }
     }
 }

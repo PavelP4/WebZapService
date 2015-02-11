@@ -12,6 +12,7 @@ using WebZapService.DTOs;
 using WebZapService.BusinessLogic;
 using WebZapService.DataAccess.DataModel;
 using System.Net.Http.Headers;
+using WebZapService.Exceptions;
 
 namespace WebZapService.Controllers
 {
@@ -42,9 +43,7 @@ namespace WebZapService.Controllers
                     {
                         try
                         {
-                            await AlertHelper.NewAlertPost(item.Subscription_URL,
-                                request.Message,
-                                item.Account_Name);                            
+                            await NewAlertPost(item.Subscription_URL, request.Message, item.Account_Name);                            
                         }
                         catch (Exception ex)
                         {
@@ -76,6 +75,23 @@ namespace WebZapService.Controllers
             else
             {
                 return new NewAlertResponse();
+            }
+        }
+
+        private async Task NewAlertPost(string webhookUri, string alertMessage, string accountName)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(webhookUri);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = await client.PostAsJsonAsync("", AlertHelper.GetNewAlert(alertMessage, accountName));
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new AlertSendException(string.Format("Unsuccessfully sent. Status code: {0}", response.StatusCode));
+                }
             }
         }
     }

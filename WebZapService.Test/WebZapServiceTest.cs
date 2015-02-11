@@ -72,7 +72,7 @@ namespace ZapService.Test
         public async Task NewAlertEvent()
         {
             NewAlertRequest requestObj = new NewAlertRequest() { 
-                Message = string.Format("This is a new alert message == V2 == for test (Date and Time: {0}).", DateTime.Now),
+                Message = string.Format("This is a new alert message == App V2 == for test (Date and Time: {0}).", DateTime.Now),
                 API_Key = "3719977C0ADC4E29A650D147A3916983" 
             };
             NewAlertResponse responseObj = null;

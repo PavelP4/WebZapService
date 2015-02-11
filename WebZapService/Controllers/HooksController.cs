@@ -45,7 +45,10 @@ namespace WebZapService.Controllers
                         Subscription_URL = request.Subscription_URL,
                         Target_URL = request.Target_URL,
                         Event = request.Event,
-                        Created = DateTime.Now
+                        Created = DateTime.Now,
+                        Phone = request.Phone,
+                        Country_Id = request.Country_Id,
+                        Device_Id = request.Device_Id
                     };
 
                     try

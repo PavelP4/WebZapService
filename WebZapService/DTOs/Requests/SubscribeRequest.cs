@@ -19,6 +19,15 @@ namespace WebZapService.DTOs.Requests
         [DataMember(Name = "account_name")]
         public string Account_Name { get; set; }
 
+        [DataMember(Name = "phone")]
+        public string Phone { get; set; }
+
+        [DataMember(Name = "country_id")]
+        public int Country_Id { get; set; }
+
+        [DataMember(Name = "device_id")]
+        public int Device_Id { get; set; }
+
         public ErrorInfo Validate()
         {
             if (Target_URL.Length == 0)

@@ -67,6 +67,18 @@
     <Compile Include="Migrations\201501051451554_col_api_key.Designer.cs">
       <DependentUpon>201501051451554_col_api_key.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502111011454_col_phone.cs" />
+    <Compile Include="Migrations\201502111011454_col_phone.Designer.cs">
+      <DependentUpon>201502111011454_col_phone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502111103376_col_country_id.cs" />
+    <Compile Include="Migrations\201502111103376_col_country_id.Designer.cs">
+      <DependentUpon>201502111103376_col_country_id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502111202461_col_device_id.cs" />
+    <Compile Include="Migrations\201502111202461_col_device_id.Designer.cs">
+      <DependentUpon>201502111202461_col_device_id.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +92,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201501051451554_col_api_key.resx">
       <DependentUpon>201501051451554_col_api_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502111011454_col_phone.resx">
+      <DependentUpon>201502111011454_col_phone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502111103376_col_country_id.resx">
+      <DependentUpon>201502111103376_col_country_id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502111202461_col_device_id.resx">
+      <DependentUpon>201502111202461_col_device_id.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

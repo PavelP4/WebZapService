@@ -126,7 +126,9 @@
     <Compile Include="DTOs\Responses\DevicesResponse.cs" />
     <Compile Include="DTOs\Responses\NewAlertResponse.cs" />
     <Compile Include="DTOs\Responses\SubscribeResponse.cs" />
+    <Compile Include="DTOs\Responses\TestTriggerObject.cs" />
     <Compile Include="DTOs\Responses\UnSubscribeResponse.cs" />
+    <Compile Include="Exceptions\AlertSendException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
